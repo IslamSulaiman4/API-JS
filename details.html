@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="assets/bootstrap.min.css"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand  fw-bold" href="#">Abu Julia</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class=" navbar-collapse justify-content-end"  id="navbarSupportedContent">
+      <ul class="navbar-nav   mb-2 mb-lg-0">
+        <li class="nav-item px-4">
+          <a class="nav-link active" aria-current="page" href="#">Pizza</a>
+        </li>
+        <li class="nav-item px-4">
+          <a class="nav-link " href="#">Carrot</a>
+        </li>
+
+        <li class="nav-item px-4">
+          <a class="nav-link " href="#">Corn</a>
+        </li>
+        <li class="nav-item px-4">
+            <a class="nav-link " href="#">Potato</a>
+          </li>
+          <li class="nav-item px-4">
+            <a class="nav-link " href="#">Tomato</a>
+          </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+ 
+<div class="container text-center">
+    <div class="" id="data-container">
+        
+    </div>
+</div>
+
+
+    <script>
+       
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('rId');
+       // var publisher = urlParams.get('rId');
+
+      
+     fetch(`https://forkify-api.herokuapp.com/api/get?rId=${id}`)
+                .then(response => response.json())
+                .then(recipe => {
+                    const dataContainer = document.getElementById('data-container');
+                    dataContainer.innerHTML = `
+                        <h1 class="py-5"> Recipe details</h1>
+                        <p class="fw-semibold fs-4"> <span class="text-danger"> Title: </span> ${recipe.recipe.title}</p>
+                        <img class="img-responsive img-fluid pb-3" src="${recipe.recipe.image_url}" alt="Dish Photo"/>
+                        <p class="fw-semibold fs-4"> <span class="text-danger">Publisher:</span> ${recipe.recipe.publisher}</p>
+                        <p class="fw-semibold fs-4 w-75 m-auto py-3"> <span class="text-danger"> Ingredients: </span> ${recipe.recipe.ingredients}</p>
+                        <p class="fw-semibold fs-4"> <span class="text-danger"> Source_url: </span> ${recipe.recipe.source_url}</p>
+                        <p class="fw-semibold fs-4"> <span class="text-danger"> Publisher_url: </span> ${recipe.recipe.publisher_url}</p>
+                        <p class="fw-semibold fs-4"> <span class="text-danger"> Social_rank: </span> ${recipe.recipe.social_rank}</p>
+                    `;
+                    
+                })
+    </script>
+    </body>
+</html>
